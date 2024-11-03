@@ -1,5 +1,5 @@
 function clearWords(word) {
-    return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+    return word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 }
 
 function checkDuplicateWords(text) {
@@ -7,15 +7,20 @@ function checkDuplicateWords(text) {
     const result = {}
     // object[property] = value
     wordsList.forEach(word => {
-        result[word] = (result[word] || 0) + 1
+        if (word.length >= 3) {
+            const cleanWord = clearWords(word)
+            result[cleanWord] = (result[cleanWord] || 0) + 1
+        }
     });
 
     return result
 }
 
 function breakParagraphs(text) {
-    const paragraphs =  text.toLowerCase().split('\n')
-    const cont = paragraphs.map((paragraph) => checkDuplicateWords(paragraph))
+    const paragraphs = text.toLowerCase().split('\n')
+    const cont = paragraphs
+    .filter((paragraph) => paragraph)
+    .map((paragraph) => checkDuplicateWords(paragraph))
     console.log("🚀 ~ breakParagraphs ~ paragraphs:", cont)
 }
 
