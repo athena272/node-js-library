@@ -16,12 +16,23 @@ function checkDuplicateWords(text) {
     return result
 }
 
+function extractParagraphs(text) {
+    return text.toLowerCase().split('\n')
+}
+
+function wordsCounter(text) {
+    const paragraphs = extractParagraphs(text)
+    const count = paragraphs
+        .flatMap(paragraph => {
+            if (!paragraph) return []
+
+            return checkDuplicateWords(paragraph)
+        })
+    console.log("🚀 ~ breakParagraphs ~ paragraphs:", count)
+}
+
 function breakParagraphs(text) {
-    const paragraphs = text.toLowerCase().split('\n')
-    const cont = paragraphs
-    .filter((paragraph) => paragraph)
-    .map((paragraph) => checkDuplicateWords(paragraph))
-    console.log("🚀 ~ breakParagraphs ~ paragraphs:", cont)
+    wordsCounter(text)
 }
 
 module.exports = {
