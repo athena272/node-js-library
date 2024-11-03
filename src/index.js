@@ -13,7 +13,5 @@ fs.readFile(link, 'utf-8', (error, text) => {
     utils.breakParagraphs(text)
 })
 
-
-
 // const filesPath = process.argv // arguments vector
 // console.log("🚀 ~ filesPath:", filesPath)
