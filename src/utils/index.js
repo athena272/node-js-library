@@ -1,3 +1,7 @@
+function clearWords(word) {
+    return word.replace('(', ' ')
+}
+
 function checkDuplicateWords(text) {
     const wordsList = text.split(' ')
     const result = {}
