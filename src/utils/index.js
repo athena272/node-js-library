@@ -1,5 +1,5 @@
 function clearWords(word) {
-    return word.replace('(', ' ')
+    return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 }
 
 function checkDuplicateWords(text) {
