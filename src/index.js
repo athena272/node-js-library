@@ -10,6 +10,11 @@ const filesPathVector = [
 const link = filesPathVector[2]
 
 fs.readFile(link, 'utf-8', (error, text) => {
+    if (error) {
+        console.error("Erro ao ler o arquivo:", error);
+        return;
+    }
+
     utils.breakParagraphs(text)
 })
 
