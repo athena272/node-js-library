@@ -28,11 +28,11 @@ function wordsCounter(text) {
 
             return checkDuplicateWords(paragraph)
         })
-    console.log("🚀 ~ breakParagraphs ~ paragraphs:", count)
+    return count
 }
 
 function breakParagraphs(text) {
-    wordsCounter(text)
+   return wordsCounter(text)
 }
 
 module.exports = {
