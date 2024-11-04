@@ -7,27 +7,31 @@ const filesPathVector = [
     path.join(__dirname, '../files/texto-aprendizado.txt'),
     path.join(__dirname, '../files/texto-kanban.txt'),
     path.join(__dirname, '../files/texto-web.txt'),
-    path.join(__dirname, '../files/empty.txt'),
+    // path.join(__dirname, '../files/empty.txt'),
 ];
-const link = filesPathVector[2]
+// const link = filesPathVector[2]
 
-fs.readFile(link, 'utf-8', (error, text) => {
-    try {
-        if (error || !text) throw error
+function myReadFile(link) {
+    fs.readFile(link, 'utf-8', (error, text) => {
+        try {
+            if (error || !text) throw error
 
-        const result = breakParagraphs(text)
-        createSaveFile({
-            wordsList: result,
-            pathToSave: path.join(__dirname, '../output')
-        })
-    } catch (error) {
-        errorHandler(error, text)
-    }
+            const outputFileName = `output_${path.basename(link)}`;
+            const result = breakParagraphs(text)
+            createSaveFile({
+                wordsList: result,
+                pathToSave: path.join(__dirname, '../output'),
+                fileName: outputFileName,
+            })
+        } catch (error) {
+            errorHandler(error, text)
+        }
 
-})
+    })
+}
 
-async function createSaveFile({ wordsList, pathToSave }) {
-    const newFile = `${pathToSave}/output.txt`
+async function createSaveFile({ wordsList, pathToSave, fileName }) {
+    const newFile = path.join(pathToSave, fileName);
     const wordsText = JSON.stringify(wordsList)
     try {
         await fs.promises.writeFile(newFile, wordsText)
@@ -37,5 +41,18 @@ async function createSaveFile({ wordsList, pathToSave }) {
         throw error
     }
 }
+
+async function createMultiplesFiles() {
+    try {
+        const promisesArray = filesPathVector.map(path => myReadFile(path))
+        const data = await Promise.all(promisesArray)
+        return data
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+createMultiplesFiles()
 
 // const filesPath = process.argv // arguments vector
