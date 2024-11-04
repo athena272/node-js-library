@@ -16,20 +16,24 @@ fs.readFile(link, 'utf-8', (error, text) => {
         if (error || !text) throw error
 
         const result = breakParagraphs(text)
-        createSaveFile(path.join(__dirname, '../files', result))
+        createSaveFile({
+            wordsList: result,
+            pathToSave: path.join(__dirname, '../output')
+        })
     } catch (error) {
         errorHandler(error, text)
     }
 
 })
 
-async function createSaveFile(wordsList, pathToSave) {
+async function createSaveFile({ wordsList, pathToSave }) {
     const newFile = `${pathToSave}/output.txt`
     const wordsText = JSON.stringify(wordsList)
     try {
         await fs.promises.writeFile(newFile, wordsText)
-        console.log('File create')
+        console.log('File created successfully!')
     } catch (error) {
+        console.log("🚀 ~ createSaveFile ~ error:", error)
         throw error
     }
 }
