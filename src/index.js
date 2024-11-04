@@ -6,16 +6,20 @@ const filesPathVector = [
     path.join(__dirname, '../files/texto-aprendizado.txt'),
     path.join(__dirname, '../files/texto-kanban.txt'),
     path.join(__dirname, '../files/texto-web.txt'),
+    path.join(__dirname, '../files/empty.txt'),
 ];
-const link = filesPathVector[2]
+const link = filesPathVector[3]
 
 fs.readFile(link, 'utf-8', (error, text) => {
-    if (error) {
-        console.error("Erro ao ler o arquivo:", error);
-        return;
+    try {
+        if (!text) throw new Error("Não há nada para ser lido")
+        if (error) throw new Error
+
+        utils.breakParagraphs(text)
+    } catch (error) {
+        console.error("Erro ao ler o arquivo:", error.message);
     }
 
-    utils.breakParagraphs(text)
 })
 
 // const filesPath = process.argv // arguments vector
