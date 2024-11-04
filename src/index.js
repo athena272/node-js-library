@@ -9,7 +9,7 @@ const filesPathVector = [
     path.join(__dirname, '../files/texto-web.txt'),
     path.join(__dirname, '../files/empty.txt'),
 ];
-const link = filesPathVector[2]
+const link = filesPathVector[3]
 
 fs.readFile(link, 'utf-8', (error, text) => {
     try {
