@@ -2,6 +2,7 @@ const fs = require('fs') // file system
 const path = require('path');
 const { breakParagraphs } = require('./utils');
 const { errorHandler } = require('./erros');
+const { creatOutputFile } = require('./helper');
 
 const filesPathVector = [
     path.join(__dirname, '../files/texto-aprendizado.txt'),
@@ -32,7 +33,7 @@ function myReadFile(link) {
 
 async function createSaveFile({ wordsList, pathToSave, fileName }) {
     const newFile = path.join(pathToSave, fileName);
-    const wordsText = JSON.stringify(wordsList)
+    const wordsText = creatOutputFile(wordsList)
     try {
         await fs.promises.writeFile(newFile, wordsText)
         console.log('File created successfully!')
